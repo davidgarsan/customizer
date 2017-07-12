@@ -1,46 +1,47 @@
 import I18n from './i18n';
 import Observator from './observator';
-import Text from './text';
+import Styles from './styles';
+import TextNodes from './text_nodes';
 
-const ATTR_NAME = 'data-translate';
-const stringsService = (function () {
-  const strings = {'es_ES': {'greeting': 'Hola'}, 'en_UK': {'greeting': 'Hi'}};
-
-  return {
-    getString(lang, key) {
-      return strings[lang][key];
-    }
-  };
-})();
-const lang = new I18n(stringsService, 'es_ES');
-const customizable = { 'language': lang.language, 'skin': 'ruralvia' };
-const Observable = Observator(customizable);
-
-function _parseDOM(parent, observable) {
-    const texts = parent.querySelectorAll(`[${ATTR_NAME}]:not([${ATTR_NAME}=""])`);
-    // const styles = document.querySelector('link#skin');
-
-    // syncStyles(styles, observable);
-
-    texts.forEach((textNode) => {
-      this.syncNodeText(textNode, observable, textNode.attributes[`${ATTR_NAME}`].value);
-    });
+const checkStringsProvider = (stringsProvider) => {
+  if (!stringsProvider || stringsProvider.getString === undefined) {
+    throw TypeError('stringsProvider debe implementar el método getString');
   }
-
-Observable.observe('language', () => { lang.language = customizable.language; });
-Observable.observe('skin', () => { console.log('Modificado skin'); });
-
-customizable.language = 'en_UK';
-customizable.skin = 'ruralvia';
+};
 
 export default {
-  init() {
-    _parseDOM(document.body, Observable.data);
+  customizable: null,
+
+  textNodes: null,
+
+  init(stringsProvider, config) {
+    let Observable;
+    const defaults = { 'language': 'es_ES', 'skin': 'styles' };
+
+    this.customizable = config || defaults;
+    checkStringsProvider(stringsProvider);
+
+    const lang = new I18n(stringsProvider, this.customizable.language);
+    const styles = document.querySelector('link#skin');
+
+    Observable = Observator(this.customizable);
+    this.textNodes = new TextNodes(document.body, lang, Observable);
+
+    Observable.observe('language', () => { lang.language = this.customizable.language; });
+
+    Styles.syncStyles(styles, Observable);
+    this.textNodes.watch();
   },
+
   changeLanguage(lang) {
-    customizable.language = lang;
+    this.customizable.language = lang;
   },
+
   changeSkin(skin) {
-    customizable.skin = skin;
+    this.customizable.skin = skin;
+  },
+
+  reset() {
+    this.textNodes.reset();
   }
 };

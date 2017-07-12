@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #fff;
+            text-align: center;
+            margin: 3rem;
+        }
+
+        h1 {
+            font-size: 20vw;
+            margin-bottom: 1rem;
+        }
+
+        .sign {
+            border-radius: 1rem;
+            border: .25rem solid #333;
+            height: 400px;
+            background-size: contain;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .sex a {
+            font-size: 1.5rem;
+        }
+
+    </style>
+    <link id="skin" rel="stylesheet" href="../demo/css/male.min.css">
+</head>
+<body>
+<div class="sign"></div>
+<h1 data-translate="toilet"></h1>
+<footer>
+    <div class="lang"></div>
+    <div class="sex"><a href="#" id="male">♂</a><a href="#" id="female">♀</a></div>
+</footer>
+<script type="text/javascript" src="../customizer.js"></script></body>
+<script>
+  const strings = {
+    'es': {'toilet': 'Baño'},
+    'en': {'toilet': 'Toilet'},
+    'fr': {'toilet': 'Toilette'},
+    'zn': {'toilet': '廁所'},
+    'ar': {'toilet': 'الحمام'}
+  };
+  const stringsProvider = (function () {
+    return {
+      getString: function (lang, key) {
+        return strings[lang][key];
+      }
+    };
+  })();
+
+  let langLinks = [];
+  for(let l in strings) {
+    langLinks.push('<a href="#">' + l + '</a>');
+  }
+  const langs = document.querySelector('.lang');
+  langs.innerHTML = langLinks.join(' · ');
+  langs.onclick = (e) => {
+    if (e.target.nodeName.toLowerCase() === 'a') {
+      Customizer.changeLanguage(e.target.textContent);
+    }
+    e.preventDefault();
+  };
+  const sex = document.querySelector('.sex');
+  sex.onclick = (e) => {
+    if (e.target.nodeName.toLowerCase() === 'a') {
+      Customizer.changeSkin(e.target.id);
+    }
+    e.preventDefault();
+  };
+
+  Customizer.init(stringsProvider, { language: 'es', skin: 'male' });
+</script>
+</html>

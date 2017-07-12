@@ -1,5 +1,4 @@
-/* eslint-disable */
-export default function (dataObj, i18n) {
+export default function (dataObj) {
   let signals = {};
 
   function observe(property, signalHandler) {

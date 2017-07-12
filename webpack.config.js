@@ -1,11 +1,16 @@
 /* global require, module */
 
 const webpack = require('webpack');
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 let libraryName = 'Customizer';
 let plugins = [], outputFile;
+
+plugins.push(new HTMLWebpackPlugin({
+  template: 'demo/index.html',
+  filename: 'demo/index.html'
+}));
 
 if (process.env.NODE_ENV === 'production') {
   outputFile = libraryName.toLowerCase() + '.min.js';

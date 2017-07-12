@@ -1,9 +1,8 @@
 const LANG_DEFAULT = 'es_ES';
 
 export default class I18n {
-  constructor(stringsProvider, stringsHanler, language) {
+  constructor(stringsProvider, language) {
     this._strings = stringsProvider;
-    this._handler = stringsHanler;
     this._language = language;
   }
 
@@ -13,8 +12,6 @@ export default class I18n {
 
   set language(language) {
     this._language = language;
-    console.log('Changed language to ' + language);
-    this._handler
   }
 
   t(key) {

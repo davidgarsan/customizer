@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #fff;
+            text-align: center;
+            margin: 3rem;
+        }
+
+        h1 {
+            font-size: 20vw;
+        }
+
+        .sign {
+            border-radius: 1rem;
+            border: .25rem solid #333;
+            height: 400px;
+            background-size: contain;
+        }
+
+    </style>
+    <link id="skin" rel="stylesheet" href="../demo/css/male.min.css">
+</head>
+<body>
+<div class="sign"></div>
+<h1 data-translate="toilet"></h1>
+<footer></footer>
+<script type="text/javascript" src="customizer.js"></script></body>
+<script>
+  const stringsProvider = (function () {
+      const strings = {
+        'es': {'toilet': 'Baño'},
+        'en': {'toilet': 'Toilet'},
+        'fr': {'toilet': 'Toilette'},
+        'zn': {'toilet': '廁所'},
+        'ar': {'toilet': 'الحمام'}
+      };
+
+      return {
+        getString: function (lang, key) {
+          return strings[lang][key];
+        }
+      };
+    })();
+
+    Customizer.init(stringsProvider, {language: 'es', skin: 'male'});
+</script>
+</html>
