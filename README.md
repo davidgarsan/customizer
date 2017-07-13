@@ -110,7 +110,7 @@ La utilidad _Customizer_ expone una serie de métodos para facilitar la customiz
 Por ejemplo si el estilo inicial está en _http://server/css/style.min.css_, un cambio a un `skin` llamado _style-new_ debería tener la ruta _http://server/css/style-new.min.css_.
 
 ### Demo
-En la propia utilidad se incluye una demo mostrando el funcionamiento de la utilidad, sincronizando un texto con el cambio de idioma y facilitando el cambio del aspecto visual general.
+En la propia utilidad se incluye una demo _responsive_ mostrando el funcionamiento de la utilidad, sincronizando un texto con el cambio de idioma y facilitando el cambio del aspecto visual general.
 
 #### Prueba en local
 1. `> git clone <este repositorio>`  
