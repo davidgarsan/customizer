@@ -17,6 +17,7 @@ El proyecto está construido mediante Webpack he incorpora los scripts necesario
 
 #### Requisitos
 Para usar esta utilidad, la aplicación debe cumplir con unas convenciones.
+
 ##### Textos
 1. Los textos a actualizar en el cambio de idioma deberán estar contenidos dentro de elementos HTML con el atributo `data-translate`.
 Este atributo tendrá como valor la clave que se corresponde con el texto que se mostrará a partir de un JSON:
@@ -30,6 +31,7 @@ Este atributo tendrá como valor la clave que se corresponde con el texto que se
       'en': {'saludo': 'Hello'}
     };
     ```
+    
 ##### Estilos
 1. En enlace de la hoja de estilos debe tener el id `skin`:
     ```html
@@ -43,8 +45,10 @@ Una vez añadida la librería a una aplicación, debe inicializarse mediante dos
 ```javascript
 Customizer.init(stringsProvider, config)
 ```
+
 * _stringsProvider_: Objeto javascript que debe implementar el método `getString(key)`. De lo contrario se lanzará un _TypeError_.
 Una implementación básica usaría un JSON estático:
+
 ```javascript
   var strings = {
     'es': {'saludo': 'Hola'},
@@ -59,6 +63,7 @@ Una implementación básica usaría un JSON estático:
     };
   })();
 ```
+
 En un caso más avanzado se podría usar un servicio de textos cacheando las respuestas:
 ```javascript
   var stringsProvider = (function () {
@@ -98,3 +103,4 @@ En la propia utilidad se incluye una demo mostrando el funcionamiento de la util
 1. `> cd <directorio clonado>`
 1. `> npm install` 
 1. `> npm run demo`
+1. Abrir en un navegador la URL `http://localhost:8080/demo` (El puerto puede variar de manera incremental si 8080 ya está en uso).
