@@ -21,6 +21,7 @@ Para usar esta utilidad, la aplicación debe cumplir con unas convenciones.
 ##### Textos
 1. Los textos a actualizar en el cambio de idioma deberán estar contenidos dentro de elementos HTML con el atributo `data-translate`.
 Este atributo tendrá como valor la clave que se corresponde con el texto que se mostrará a partir de un JSON:
+
     ```html
     <span data-translate="saludo"></span>
     ```
@@ -34,6 +35,7 @@ Este atributo tendrá como valor la clave que se corresponde con el texto que se
     
 ##### Estilos
 1. En enlace de la hoja de estilos debe tener el id `skin`:
+ 
     ```html
     <link id="skin" rel="stylesheet" href="css/male.min.css">
     ```
@@ -46,47 +48,59 @@ Una vez añadida la librería a una aplicación, debe inicializarse mediante dos
 Customizer.init(stringsProvider, config)
 ```
 
+#### Parámetros
+
 * _stringsProvider_: Objeto javascript que debe implementar el método `getString(key)`. De lo contrario se lanzará un _TypeError_.
 Una implementación básica usaría un JSON estático:
 
-```javascript
-  var strings = {
-    'es': {'saludo': 'Hola'},
-    'en': {'saludo': 'Hello'}
-  };
-
-  var stringsProvider = (function () {
-    return {
-      getString: function (lang, key) {
-        return strings[lang][key];
-      }
-    };
-  })();
-```
-
-En un caso más avanzado se podría usar un servicio de textos cacheando las respuestas:
-```javascript
-  var stringsProvider = (function () {
-    var textService = 'http://server/rest/texts-service/';
-    var strings = {};
+    ```javascript
+      var strings = {
+        'es': {'saludo': 'Hola'},
+        'en': {'saludo': 'Hello'}
+      };
     
-    return {
-      getString: function (lang, key) {
-        if (strings[lang]) {
-          return strings[lang][key];
-        }
-        xhr(textService + 'lang', function callback(data) {
-          strings[lang] = data;
-          return strings[lang][key];
-        })
-      }
-    };
-  })();
-```
+      var stringsProvider = (function () {
+        return {
+          getString: function (lang, key) {
+            return strings[lang][key];
+          }
+        };
+      })();
+    ```
+    
+    En un caso más avanzado se podría usar un servicio de textos cacheando las respuestas:
+    ```javascript
+      var stringsProvider = (function () {
+        var textService = 'http://server/rest/texts-service/';
+        var strings = {};
+        
+        return {
+          getString: function (lang, key) {
+            if (strings[lang]) {
+              return strings[lang][key];
+            }
+            xhr(textService + 'lang', function callback(data) {
+              strings[lang] = data;
+              return strings[lang][key];
+            })
+          }
+        };
+      })();
+    ```
+* _config_: Objeto JSON de configuración con los elementos que se deseen sincronizar y sus valores iniciales:
 
-El valor por defecto de `language` es _es_ES_, y _styles_ para el atributo `skin`.
+    ```javascript
+    var config = {
+      'language': 'es_ES',
+      'skin': 'main'
+    };
+    ```
+
+    El valor por defecto de `language` es _es_ES_, y el de `skin` _styles_.
     
 ### API
+
+La utilidad _Customizer_ expone una serie de métodos para facilitar la customización de textos y estilos en tiempo real ocultando la lógica asociada y simplificando el desarrollo.
 
 ### Métodos
 
