@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="viewport" content="width=device-width, user-scalable=no">
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
@@ -12,44 +13,60 @@
         }
 
         h1 {
-            font-size: 20vw;
+            font-size: 3rem;
             margin-bottom: 1rem;
+            text-shadow: 0px 0px 1px black;
         }
 
         .sign {
             border-radius: 1rem;
-            border: .25rem solid #333;
+            border: .5rem solid #333;
             height: 400px;
-            background-size: contain;
+            max-width: 300px;
+            background-size: contain !important;
+            box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.75), inset 1px 1px 5px 0px rgba(0,0,0,0.75);
+            margin: 0 auto;
         }
 
         a {
             color: #fff;
             text-decoration: none;
         }
+
         .sex a {
             font-size: 1.5rem;
         }
 
+        @media only screen
+        and (max-device-width: 736px) and (orientation: portrait),
+        only screen
+        and (max-device-width: 736px) and (orientation: landscape) {
+            .sign {
+                height: 0;
+                padding-bottom: 100%;
+                width: 80%;
+            }
+        }
     </style>
     <link id="skin" rel="stylesheet" href="../demo/css/male.min.css">
 </head>
 <body>
-<div class="sign"></div>
+<div class="sign portrait"></div>
 <h1 data-translate="toilet"></h1>
 <footer>
     <div class="lang"></div>
     <div class="sex"><a href="#" id="male">♂</a><a href="#" id="female">♀</a></div>
 </footer>
-<script type="text/javascript" src="../customizer.js"></script></body>
+<script type="text/javascript" src="../customizer.min.js"></script></body>
 <script>
   const strings = {
-    'es': {'toilet': 'Baño'},
+    'es': {'toilet': 'Servicio'},
     'en': {'toilet': 'Toilet'},
     'fr': {'toilet': 'Toilette'},
     'zn': {'toilet': '廁所'},
     'ar': {'toilet': 'الحمام'}
   };
+
   const stringsProvider = (function () {
     return {
       getString: function (lang, key) {
@@ -62,6 +79,7 @@
   for(let l in strings) {
     langLinks.push('<a href="#">' + l + '</a>');
   }
+
   const langs = document.querySelector('.lang');
   langs.innerHTML = langLinks.join(' · ');
   langs.onclick = (e) => {
@@ -70,6 +88,7 @@
     }
     e.preventDefault();
   };
+
   const sex = document.querySelector('.sex');
   sex.onclick = (e) => {
     if (e.target.nodeName.toLowerCase() === 'a') {

@@ -21,9 +21,6 @@ export default class TextNodes {
 
   watch() {
     this.nodes = this.parent.querySelectorAll(`[${ATTR_NAME}]:not([${ATTR_NAME}=""])`);
-    // const styles = document.querySelector('link#skin');
-
-    // syncStyles(styles, observable);
 
     this.nodes.forEach((textNode) => {
       syncNodeText(textNode, this.observable, textNode.attributes[`${ATTR_NAME}`].value, this.i18n.t.bind(this.i18n));
@@ -34,18 +31,3 @@ export default class TextNodes {
     this.nodes = [];
   }
 };
-
-/*
- function _replaceStyle(styles, style) {
-   styles.setAttribute('href',
-   styles.getAttribute('href').replace(/css\/(.*?.min.css)/g, 'css/' + style + '.min.css'));
- }
-
- function syncStyles(styles, observable) {
-   _replaceStyle(styles, observable.styles);
-   _observe('styles', function cb() {
-    _replaceStyle(styles, observable.styles);
-  });
- }
- */
-// parseDOM(document.body, App.data);

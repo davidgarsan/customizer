@@ -1,7 +1,7 @@
 export default {
   replaceStyle(stylesLink, style) {
     stylesLink.setAttribute('href',
-      stylesLink.getAttribute('href').replace(/css\/(.*?.min.css)/g, 'css/' + style + '.min.css'));
+      stylesLink.getAttribute('href').replace(/(\/css\/)(\w+)()/g, `$1${style}$3`));
   },
 
   syncStyles(styles, observable) {
