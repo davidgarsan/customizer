@@ -36,11 +36,7 @@ Este atributo tendrá como valor la clave que se corresponde con el texto que se
     ```
     
 ##### Estilos
-<<<<<<< Updated upstream
 1. En enlace de la hoja de estilos debe tener el id `skin`:
-=======
-1. El enlace de la hoja de estilos debe tener el id `skin`:
->>>>>>> Stashed changes
  
     ```html
     <link id="skin" rel="stylesheet" href="css/male.min.css">
@@ -57,11 +53,7 @@ Customizer.init(stringsProvider, config)
 #### Parámetros
 
 * _stringsProvider_: Objeto javascript que debe implementar el método `getString(key)`. De lo contrario se lanzará un _TypeError_.
-<<<<<<< Updated upstream
-Una implementación básica usaría un JSON estático:
-=======
 Una implementación básica usaría un JSON estático como _datasource_:
->>>>>>> Stashed changes
 
     ```javascript
       var strings = {
@@ -89,11 +81,7 @@ Una implementación básica usaría un JSON estático como _datasource_:
             if (strings[lang]) {
               return strings[lang][key];
             }
-<<<<<<< Updated upstream
-            xhr(textService + 'lang', function callback(data) {
-=======
             xhr(textService + lang, function callback(data) {
->>>>>>> Stashed changes
               strings[lang] = data;
               return strings[lang][key];
             })
@@ -110,27 +98,21 @@ Una implementación básica usaría un JSON estático como _datasource_:
     };
     ```
 
-<<<<<<< Updated upstream
+
     El valor por defecto de `language` es _es_ES_, y el de `skin` _styles_.
     
-### API
-
-La utilidad _Customizer_ expone una serie de métodos para facilitar la customización de textos y estilos en tiempo real ocultando la lógica asociada y simplificando el desarrollo.
-=======
-    El valor por defecto de `language` es _es_ES_, y el de `skin` _styles_. 
     
     En cualquier caso, **para sincronizar los cambios de estos atributos, se deberán incluir en el objeto de configuración inicial**.
     
 ### API
 
 La utilidad _Customizer_ expone una serie de métodos para facilitar la customización de textos y estilos en tiempo real, ocultando la lógica implicada y simplificando el desarrollo.
->>>>>>> Stashed changes
 
 ### Métodos
 
-* `init(stringsProvider, config)` - Inicializa la sincronicación de textos y estilos de la aplicación con cambios en la configuración de lenguaje y los estilos respectivamente.
-* `changeLanguage(lang)` - Cambia el lenguaje de la aplicación en la configuración y actualiza automáticamente los textos vinculados. El valor del parámetro `lang` debe ser uno de los identificadores de idioma definidos en el `stringsProvider`.       
-* `changeSkin(skin)` - Cambia los estilos de la aplicación actualizando el enlace del archivo CSS con el nuevo valor. El parámetro `skin` debe corresponderse con el nombre de la hoja de estilos sin ruta ni sufijo. 
+* **`init(stringsProvider, config)`** - Inicializa la sincronicación de textos y estilos de la aplicación con cambios en la configuración de lenguaje y los estilos respectivamente.
+* **`changeLanguage(lang)`** - Cambia el lenguaje de la aplicación en la configuración y actualiza automáticamente los textos vinculados. El valor del parámetro `lang` debe ser uno de los identificadores de idioma definidos en el `stringsProvider`.       
+* **`changeSkin(skin)`** - Cambia los estilos de la aplicación actualizando el enlace del archivo CSS con el nuevo valor. El parámetro `skin` debe corresponderse con el nombre de la hoja de estilos sin ruta ni sufijo. 
 Por ejemplo, si el estilo inicial está en _http://server/css/style.min.css_, un cambio a un `skin` llamado _style-new_ debería tener la ruta _http://server/css/style-new.min.css_.
 
 ### Demo
