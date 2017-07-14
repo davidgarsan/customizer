@@ -2,6 +2,8 @@
 
 Utilidad _FrontEnd_ para la personalización de textos por idioma y estilos CSS. 
 
+![customizer](./demo/demo.gif "Customizer")
+
 ## Desarrollo
 
 La lógica se basa en el patrón Observer (implementación _signals_) para automatizar los cambios de idioma y estilos en tiempo de ejecución.
@@ -9,7 +11,7 @@ El proyecto está construido mediante Webpack he incorpora los scripts necesario
 
 * `npm run build` - Genera una versión minificada para producción.
 * `npm run dev` - Genera una versión no minificada para desarrollo y lanza un _watcher_ para recompilar a cada modificación de archivos.
-* `npm run demo` - Lanza un servidor para mostrar una demostración de la utilidad, accediendo a _http://localhost:8080/demo_.
+* `npm run demo` - Lanza un servidor para ver una demostración de la utilidad, accediendo a _http://localhost:8080/demo_.
 * `npm run test` - Ejecuta los test del proyecto.
 * `npm run test:watch` - Ejecuta los test del proyecto y lanza un _watcher_ para recompilar a cada modificación de archivos.
         
@@ -34,7 +36,11 @@ Este atributo tendrá como valor la clave que se corresponde con el texto que se
     ```
     
 ##### Estilos
+<<<<<<< Updated upstream
 1. En enlace de la hoja de estilos debe tener el id `skin`:
+=======
+1. El enlace de la hoja de estilos debe tener el id `skin`:
+>>>>>>> Stashed changes
  
     ```html
     <link id="skin" rel="stylesheet" href="css/male.min.css">
@@ -42,7 +48,7 @@ Este atributo tendrá como valor la clave que se corresponde con el texto que se
 1. Las hojas de estilo deberán estar en el mismo directorio y tener el mismo sufijo, ya sea `.css` o `.min.css`
 
 #### Inicialización
-Una vez añadida la librería a una aplicación, debe inicializarse mediante dos parámetros
+Una vez añadida la librería a una aplicación, debe inicializarse mediante dos parámetros:
 
 ```javascript
 Customizer.init(stringsProvider, config)
@@ -51,7 +57,11 @@ Customizer.init(stringsProvider, config)
 #### Parámetros
 
 * _stringsProvider_: Objeto javascript que debe implementar el método `getString(key)`. De lo contrario se lanzará un _TypeError_.
+<<<<<<< Updated upstream
 Una implementación básica usaría un JSON estático:
+=======
+Una implementación básica usaría un JSON estático como _datasource_:
+>>>>>>> Stashed changes
 
     ```javascript
       var strings = {
@@ -79,7 +89,11 @@ Una implementación básica usaría un JSON estático:
             if (strings[lang]) {
               return strings[lang][key];
             }
+<<<<<<< Updated upstream
             xhr(textService + 'lang', function callback(data) {
+=======
+            xhr(textService + lang, function callback(data) {
+>>>>>>> Stashed changes
               strings[lang] = data;
               return strings[lang][key];
             })
@@ -96,18 +110,28 @@ Una implementación básica usaría un JSON estático:
     };
     ```
 
+<<<<<<< Updated upstream
     El valor por defecto de `language` es _es_ES_, y el de `skin` _styles_.
     
 ### API
 
 La utilidad _Customizer_ expone una serie de métodos para facilitar la customización de textos y estilos en tiempo real ocultando la lógica asociada y simplificando el desarrollo.
+=======
+    El valor por defecto de `language` es _es_ES_, y el de `skin` _styles_. 
+    
+    En cualquier caso, **para sincronizar los cambios de estos atributos, se deberán incluir en el objeto de configuración inicial**.
+    
+### API
+
+La utilidad _Customizer_ expone una serie de métodos para facilitar la customización de textos y estilos en tiempo real, ocultando la lógica implicada y simplificando el desarrollo.
+>>>>>>> Stashed changes
 
 ### Métodos
 
 * `init(stringsProvider, config)` - Inicializa la sincronicación de textos y estilos de la aplicación con cambios en la configuración de lenguaje y los estilos respectivamente.
-* `changeLanguage(lang)` - Cambia el lenguaje de la aplicación en la configuración y actualiza automáticamente los textos vinculados. El parámetro `lang` debe ser uno de los identificadores de idioma soportados por el `stringsProvider`.       
-* `changeSkin(skin)` - Cambia el lenguaje de la aplicación en la configuración y actualiza automáticamente los textos vinculados. El parámetro `skin` debe corresponderse con el nombre del archivo CSS sin ruta ni sufijo. 
-Por ejemplo si el estilo inicial está en _http://server/css/style.min.css_, un cambio a un `skin` llamado _style-new_ debería tener la ruta _http://server/css/style-new.min.css_.
+* `changeLanguage(lang)` - Cambia el lenguaje de la aplicación en la configuración y actualiza automáticamente los textos vinculados. El valor del parámetro `lang` debe ser uno de los identificadores de idioma definidos en el `stringsProvider`.       
+* `changeSkin(skin)` - Cambia los estilos de la aplicación actualizando el enlace del archivo CSS con el nuevo valor. El parámetro `skin` debe corresponderse con el nombre de la hoja de estilos sin ruta ni sufijo. 
+Por ejemplo, si el estilo inicial está en _http://server/css/style.min.css_, un cambio a un `skin` llamado _style-new_ debería tener la ruta _http://server/css/style-new.min.css_.
 
 ### Demo
 En la propia utilidad se incluye una demo _responsive_ mostrando el funcionamiento de la utilidad, sincronizando un texto con el cambio de idioma y facilitando el cambio del aspecto visual general.
