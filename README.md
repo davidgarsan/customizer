@@ -81,10 +81,12 @@ Una implementación básica usaría un JSON estático como _datasource_:
             if (strings[lang]) {
               return strings[lang][key];
             }
-            xhr(textService + lang, function callback(data) {
-              strings[lang] = data;
-              return strings[lang][key];
-            })
+            return fetch(textService + lang)
+              .then((resp) => resp.json())
+              .then((json) => { 
+                strings[lang] = json.response.data;
+                return strings[lang][key];
+              });
           }
         };
       })();

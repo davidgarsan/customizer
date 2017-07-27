@@ -29,7 +29,9 @@ export default {
 
     Observable.observe('language', () => { lang.language = customizable.language; });
 
-    Styles.syncStyles(styles, Observable);
+    if (styles) {
+      Styles.syncStyles(styles, Observable);
+    }
     textNodes.watch();
   },
 

@@ -1,7 +1,13 @@
 const ATTR_NAME = 'data-translate';
 
 function replaceText(node, text) {
-  node.textContent = text || node.textContent;
+  const replace = (str) => { node.textContent = str || node.textContent;};
+
+  if (text.constructor === Promise) {
+    text.then(replace);
+  } else {
+    replace(text);
+  }
 }
 
 function syncNodeText(node, observable, property, textGetter) {
