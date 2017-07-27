@@ -72,21 +72,29 @@ Una implementación básica usaría un JSON estático como _datasource_:
     
     En un caso más avanzado se podría usar un servicio de textos cacheando las respuestas:
     ```javascript
-      var stringsProvider = (function () {
-        var textService = 'http://server/rest/texts-service/';
-        var strings = {};
+      const stringsProvider = (function () {
+        const textService = 'http://server/rest/texts-service/';
+        const strings = {};
+        const promises = {};
         
         return {
           getString: function (lang, key) {
+            // Si ya está cacheado el idioma devolvemos el string.
             if (strings[lang]) {
               return strings[lang][key];
             }
-            return fetch(textService + lang)
-              .then((resp) => resp.json())
-              .then((json) => { 
-                strings[lang] = json.response.data;
-                return strings[lang][key];
-              });
+            // Si no hay una petición asíncrona iniciada la creamos.
+            if(!promises[lang]) {
+              promises[lang] = fetch('http://localhost:8080/api/rest/translate/workshop/' + lang)
+                .then((resp) => resp.json())
+                .then((json) => { 
+                  strings[lang] = json.response.data;
+                  // Finalmente devolvemos el string.
+                  return strings[lang][key];
+                });
+            }
+            // Devolvemos la promesa, resuelta o en curso.
+            return promises[lang];
           }
         };
       })();

@@ -3,6 +3,11 @@ const ATTR_NAME = 'data-translate';
 function replaceText(node, text) {
   const replace = (str) => { node.textContent = str || node.textContent;};
 
+  if (text.constructor !== String && text.constructor !== Promise) {
+    throw TypeError(
+      `El método getString debe devolver un String o una Promise pero está devolviendo ${text.constructor.name}`);
+  }
+
   if (text.constructor === Promise) {
     text.then(replace);
   } else {
