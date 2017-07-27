@@ -85,7 +85,7 @@ Una implementación básica usaría un JSON estático como _datasource_:
             }
             // Si no hay una petición asíncrona iniciada la creamos.
             if(!promises[lang]) {
-              promises[lang] = fetch('http://localhost:8080/api/rest/translate/workshop/' + lang)
+              promises[lang] = fetch(textService + lang)
                 .then((resp) => resp.json())
                 .then((json) => { 
                   strings[lang] = json.response.data;
