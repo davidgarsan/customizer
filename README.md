@@ -128,6 +128,7 @@ La utilidad _Customizer_ expone una serie de métodos para facilitar la customiz
 Por ejemplo, si el estilo inicial está en _http://server/css/style.min.css_, un cambio a un `skin` llamado _style-new_ debería tener la ruta _http://server/css/style-new.min.css_.
 
 ### Demo
+
 En la propia utilidad se incluye una demo _responsive_ mostrando el funcionamiento de la utilidad, sincronizando un texto con el cambio de idioma y facilitando el cambio del aspecto visual general.
 
 #### Prueba en local
@@ -136,3 +137,9 @@ En la propia utilidad se incluye una demo _responsive_ mostrando el funcionamien
 1. `> npm install` 
 1. `> npm run demo`
 1. Abrir en un navegador la URL `http://localhost:8080/demo` (El puerto puede variar de manera incremental si 8080 ya está en uso).
+
+### TODO
+
+Quedan pendientes varias mejoras de esta herramienta:
+- _Binding_ automático de nuevos elementos creados programáticamente y gestión también de elementos eliminados. La solución de momento es llamar de nuevo a `Customizer.init()` después de haber modificado el DOM, pero debería ser una solución transitoria.
+- Encapsular al funcionamiento asíncrono ocultando la complejidad y facilitando su uso con servicios REST de textos.
