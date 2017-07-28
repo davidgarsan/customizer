@@ -83,22 +83,24 @@ Una implementación básica usaría un JSON estático como _datasource_:
             if (strings[lang]) {
               return strings[lang][key];
             }
-            // Si no hay una petición asíncrona iniciada la creamos.
+            // Si no hay una petición asíncrona iniciada la creamos,
+            // cacheando el idioma solicitado.
             if(!promises[lang]) {
               promises[lang] = fetch(textService + lang)
                 .then((resp) => resp.json())
-                .then((json) => { 
-                  strings[lang] = json.response.data;
-                  // Finalmente devolvemos el string.
-                  return strings[lang][key];
-                });
+                .then((json) => strings[lang] = json.response.data);
             }
-            // Devolvemos la promesa, resuelta o en curso.
-            return promises[lang];
+            // Devolvemos la promesa, resuelta o en curso, 
+            // retornando el string solicitado una vez esté resulta.
+            return promises[lang]    
+              // Finalmente devolvemos el string.             
+              .then(() => strings[lang][key]);
           }
         };
       })();
     ```
+    En este ejemplo se emplea la [API Fetch](https://developer.mozilla.org/es/docs/Web/API/Fetch_API), pero aplicaría el mísmo uso a cualquier petición asíncrona que devuelva una [Promise](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Promise), también `JQuery.ajax`.  
+
 * _config_: Objeto JSON de configuración con los elementos que se deseen sincronizar y sus valores iniciales:
 
     ```javascript
